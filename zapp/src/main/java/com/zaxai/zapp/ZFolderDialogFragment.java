@@ -23,97 +23,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ZFolderDialogFragment extends DialogFragment {
-    private View contentView;
-    private TextView pathView;
-    private TextView backView;
-    private List<ZFFItem> zffItemList;
-    private ZFolderAdapter zAdapter;
-    private String dirPath;
-
-    @NonNull
+public class ZFolderDialogFragment extends ZFFDialogFragment {
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-        contentView=getActivity().getLayoutInflater().inflate(R.layout.zff_dialog,null);
-        initContent();
-        builder.setView(contentView)
-                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-        AlertDialog dialog=builder.create();
-        dialog.getWindow().setGravity(Gravity.TOP);
-        return dialog;
+    public ZFFAdapter onCreateAdapter(List<ZFFItem> zffItemList) {
+        return new ZFolderAdapter(zffItemList);
     }
 
     @Override
-    public void show(FragmentManager fragmentManager, String dirPath) {
-        if (dirPath == null)
-            return;
-        this.dirPath = dirPath;
-        super.show(fragmentManager, "ZFolderDialogFragment");
-    }
-
-    private void initContent(){
-        pathView=(TextView)contentView.findViewById(R.id.dir_path);
-        pathView.setText(dirPath);
-        backView=(TextView)contentView.findViewById(R.id.back_view);
-        backView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File parentFile=new File(dirPath).getParentFile();
-                if(parentFile!=null&&parentFile.list()!=null) {
-                    dirPath=parentFile.getPath();
-                    pathView.setText(dirPath);
-                    refreshItem(dirPath);
-                }else{
-                    Toast.makeText(getActivity(),"到顶了",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        RecyclerView folderListView=(RecyclerView)contentView.findViewById(R.id.dialog_list);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
-        folderListView.setLayoutManager(layoutManager);
-        zffItemList=new ArrayList<>();
-        zAdapter=new ZFolderAdapter(zffItemList);
-        zAdapter.setItemClickerListener(new ZFolderAdapter.onRecyclerItemClickerListener() {
-            @Override
-            public void onRecyclerItemClick(int position) {
-                ZFFItem zffItem=zffItemList.get(position);
-                if(!zffItem.isFile()) {
-                    dirPath = zffItem.getItemPath();
-                    refreshItem(dirPath);
-                    pathView.setText(dirPath);
-                }
-            }
-        });
-        folderListView.setAdapter(zAdapter);
-        folderListView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
-        refreshItem(dirPath);
-    }
-
-    private void refreshItem(String dirPath){
+    public void onRefreshItem(String dirPath){
         List<File> files=new ArrayList<>();
-        ZFileFind.BrowseDirectory(new File(dirPath),files,false);
-        zffItemList.clear();
+        ZFileFind.browseDirectory(new File(dirPath),files,false);
+        mZFFItemList.clear();
         Collections.sort(files);
         for(File file:files){
             if (file.isDirectory()) {
                 String info="";
                 if(file.list()!=null)
                     info=String.format("%d", file.list().length);
-                zffItemList.add(new ZFFItem(file.getPath(),file.getName(),info, R.drawable.ic_item_folder,false));
+                mZFFItemList.add(new ZFFItem(file.getPath(),file.getName(),info, R.drawable.ic_item_folder,false));
             }
         }
-        zAdapter.notifyDataSetChanged();
+        mZAdapter.notifyDataSetChanged();
     }
 }

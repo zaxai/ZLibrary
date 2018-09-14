@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.zaxai.zapp.ZFFDialogFragment;
 import com.zaxai.zapp.ZFileDialogFragment;
 import com.zaxai.zapp.ZFolderDialogFragment;
 
@@ -30,16 +31,23 @@ public class MainActivity extends AppCompatActivity {
         folderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ZFolderDialogFragment zFolderDialogFragment=new ZFolderDialogFragment();
-                zFolderDialogFragment.show(getSupportFragmentManager(),getStoragePaths()[0]);
+                new ZFolderDialogFragment()
+                        .setTitle("添加目录")
+                        .setPositiveButton("确定", new ZFFDialogFragment.OnClickListener() {
+                            @Override
+                            public void onClick(String[] selectedPaths) {
+                                for(String path:selectedPaths)
+                                    Toast.makeText(MainActivity.this,path,Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show(getSupportFragmentManager(),getStoragePaths()[0]);
             }
         });
         Button fileBtn=(Button)findViewById(R.id.file_btn);
         fileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ZFileDialogFragment zFileDialogFragment=new ZFileDialogFragment();
-                zFileDialogFragment.show(getSupportFragmentManager(),getStoragePaths()[0]);
+                new ZFileDialogFragment().setTitle("添加文件").show(getSupportFragmentManager(),getStoragePaths()[0]);
             }
         });
     }

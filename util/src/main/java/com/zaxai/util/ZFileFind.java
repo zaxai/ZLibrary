@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 
 public class ZFileFind {
-    public static void BrowseDirectory(File dirFile, List<File> files) {
+    public static void browseDirectory(File dirFile, List<File> files) {
         if(dirFile==null)
             return;
         File[] subFiles = dirFile.listFiles();
@@ -12,13 +12,13 @@ public class ZFileFind {
             for (File subFile : subFiles) {
                 files.add(subFile);
                 if (subFile.isDirectory()) {
-                    BrowseDirectory(subFile, files);
+                    browseDirectory(subFile, files);
                 }
             }
         }
     }
 
-    public static void BrowseDirectory( File dirFile, List<File> files,boolean isBrowseSubDir) {
+    public static void browseDirectory( File dirFile, List<File> files,boolean isBrowseSubDir) {
         if(dirFile==null)
             return;
         File[] subFiles = dirFile.listFiles();
@@ -26,13 +26,13 @@ public class ZFileFind {
             for (File subFile : subFiles) {
                 files.add(subFile);
                 if (isBrowseSubDir && subFile.isDirectory()) {
-                    BrowseDirectory(subFile, files,isBrowseSubDir);
+                    browseDirectory(subFile, files,isBrowseSubDir);
                 }
             }
         }
     }
 
-    public static void BrowseDirectory( String dirPath, List<String> paths) {
+    public static void browseDirectory( String dirPath, List<String> paths) {
         if(dirPath==null||dirPath.isEmpty())
             return;
         File file=new File(dirPath);
@@ -41,13 +41,13 @@ public class ZFileFind {
             for (File subFile : subFiles) {
                 paths.add(subFile.getPath());
                 if (subFile.isDirectory()) {
-                    BrowseDirectory(subFile.getPath(), paths);
+                    browseDirectory(subFile.getPath(), paths);
                 }
             }
         }
     }
 
-    public static void BrowseDirectory( String dirPath, List<String> paths,boolean isBrowseSubDir) {
+    public static void browseDirectory( String dirPath, List<String> paths,boolean isBrowseSubDir) {
         if(dirPath==null||dirPath.isEmpty())
             return;
         File file=new File(dirPath);
@@ -56,7 +56,7 @@ public class ZFileFind {
             for (File subFile : subFiles) {
                 paths.add(subFile.getPath());
                 if (isBrowseSubDir && subFile.isDirectory()) {
-                    BrowseDirectory(subFile.getPath(), paths,isBrowseSubDir);
+                    browseDirectory(subFile.getPath(), paths,isBrowseSubDir);
                 }
             }
         }
