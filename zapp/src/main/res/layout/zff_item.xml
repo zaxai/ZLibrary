@@ -6,41 +6,41 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/folder_item_image"
+        android:id="@+id/item_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:padding="8dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-        android:id="@+id/folder_item_name"
+        android:id="@+id/item_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="20sp"
         android:singleLine="true"
         android:ellipsize="end"
-        app:layout_constraintLeft_toRightOf="@id/folder_item_image"
-        app:layout_constraintRight_toLeftOf="@id/folder_item_check"
-        app:layout_constraintTop_toTopOf="@id/folder_item_image" />
+        app:layout_constraintLeft_toRightOf="@id/item_image"
+        app:layout_constraintRight_toLeftOf="@id/item_check"
+        app:layout_constraintTop_toTopOf="@id/item_image" />
 
     <TextView
-        android:id="@+id/folder_item_info"
+        android:id="@+id/item_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:textSize="15sp"
         android:singleLine="true"
         android:ellipsize="end"
-        app:layout_constraintLeft_toRightOf="@id/folder_item_image"
-        app:layout_constraintRight_toLeftOf="@id/folder_item_check"
-        app:layout_constraintBottom_toBottomOf="@id/folder_item_image" />
+        app:layout_constraintLeft_toRightOf="@id/item_image"
+        app:layout_constraintRight_toLeftOf="@id/item_check"
+        app:layout_constraintBottom_toBottomOf="@id/item_image" />
 
     <CheckBox
-        android:id="@+id/folder_item_check"
+        android:id="@+id/item_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/folder_item_image"
-        app:layout_constraintBottom_toBottomOf="@id/folder_item_image"/>
+        app:layout_constraintTop_toTopOf="@id/item_image"
+        app:layout_constraintBottom_toBottomOf="@id/item_image"/>
 </android.support.constraint.ConstraintLayout>

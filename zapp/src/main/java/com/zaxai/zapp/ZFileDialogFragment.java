@@ -23,12 +23,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ZFolderDialogFragment extends DialogFragment {
+public class ZFileDialogFragment extends DialogFragment {
     private View contentView;
     private TextView pathView;
     private TextView backView;
     private List<ZFFItem> zffItemList;
-    private ZFolderAdapter zAdapter;
+    private ZFileAdapter zAdapter;
     private String dirPath;
 
     @NonNull
@@ -60,7 +60,7 @@ public class ZFolderDialogFragment extends DialogFragment {
         if (dirPath == null)
             return;
         this.dirPath = dirPath;
-        super.show(fragmentManager, "ZFolderDialogFragment");
+        super.show(fragmentManager, "ZFileDialogFragment");
     }
 
     private void initContent(){
@@ -84,8 +84,8 @@ public class ZFolderDialogFragment extends DialogFragment {
         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
         folderListView.setLayoutManager(layoutManager);
         zffItemList=new ArrayList<>();
-        zAdapter=new ZFolderAdapter(zffItemList);
-        zAdapter.setItemClickerListener(new ZFolderAdapter.onRecyclerItemClickerListener() {
+        zAdapter=new ZFileAdapter(zffItemList);
+        zAdapter.setItemClickerListener(new ZFileAdapter.onRecyclerItemClickerListener() {
             @Override
             public void onRecyclerItemClick(int position) {
                 ZFFItem zffItem=zffItemList.get(position);
@@ -112,6 +112,12 @@ public class ZFolderDialogFragment extends DialogFragment {
                 if(file.list()!=null)
                     info=String.format("%d", file.list().length);
                 zffItemList.add(new ZFFItem(file.getPath(),file.getName(),info, R.drawable.ic_item_folder,false));
+            }
+        }
+        for(File file:files){
+            ZFFItem item;
+            if (!file.isDirectory()) {
+                zffItemList.add(new ZFFItem(file.getPath(),file.getName(),file.getName().substring(file.getName().lastIndexOf(".")+1), R.drawable.ic_item_file));
             }
         }
         zAdapter.notifyDataSetChanged();

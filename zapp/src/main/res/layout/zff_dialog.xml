@@ -10,7 +10,7 @@
         android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="添加目录"
+        android:text="添加项目"
         android:textSize="24sp"
         android:gravity="center"
         android:background="?attr/colorPrimary"
@@ -32,16 +32,17 @@
             android:singleLine="true"
             android:ellipsize="middle"/>
         <TextView
-            android:id="@+id/back_button"
+            android:id="@+id/back_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="返回"
+            android:text=" 返回"
             android:textSize="18sp"
+            android:textColor="?attr/colorAccent"
             android:gravity="right"
             android:drawableLeft="@drawable/ic_btn_back"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/folder_list"
+        android:id="@+id/dialog_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

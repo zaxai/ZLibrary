@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+
 import java.util.List;
 
-public class ZFolderAdapter extends RecyclerView.Adapter<ZFFViewHolder> {
+public class ZFileAdapter extends RecyclerView.Adapter<ZFFViewHolder> {
     private List<ZFFItem> zffItemList;
     private onRecyclerItemClickerListener itemClickerListener;
-    public ZFolderAdapter(List<ZFFItem> zffItemList){ this.zffItemList=zffItemList; }
+    public ZFileAdapter(List<ZFFItem> zffItemList){ this.zffItemList=zffItemList; }
 
     @NonNull
     @Override
@@ -35,6 +36,7 @@ public class ZFolderAdapter extends RecyclerView.Adapter<ZFFViewHolder> {
         });
         return holder;
     }
+
     @Override
     public void onBindViewHolder(@NonNull ZFFViewHolder holder, int position) {
         ZFFItem zffItem=zffItemList.get(position);
@@ -42,6 +44,10 @@ public class ZFolderAdapter extends RecyclerView.Adapter<ZFFViewHolder> {
         holder.itemName.setText(zffItem.getItemName());
         holder.itemInfo.setText(zffItem.getItemInfo());
         holder.itemCheck.setChecked(zffItem.isSelected());
+        if(!zffItem.isFile())
+            holder.itemCheck.setVisibility(View.GONE);
+        else
+            holder.itemCheck.setVisibility(View.VISIBLE);
     }
 
     @Override

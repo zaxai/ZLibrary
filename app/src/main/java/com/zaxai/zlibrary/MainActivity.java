@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.zaxai.zapp.ZFileDialogFragment;
 import com.zaxai.zapp.ZFolderDialogFragment;
 
 import java.lang.reflect.Method;
@@ -25,12 +26,20 @@ public class MainActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         }
-        Button btn=(Button)findViewById(R.id.dialog_btn);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button folderBtn=(Button)findViewById(R.id.folder_btn);
+        folderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ZFolderDialogFragment zFolderDialogFragment=new ZFolderDialogFragment();
                 zFolderDialogFragment.show(getSupportFragmentManager(),getStoragePaths()[0]);
+            }
+        });
+        Button fileBtn=(Button)findViewById(R.id.file_btn);
+        fileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ZFileDialogFragment zFileDialogFragment=new ZFileDialogFragment();
+                zFileDialogFragment.show(getSupportFragmentManager(),getStoragePaths()[0]);
             }
         });
     }

@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_btn_back" />
-                            <entry key="sourceFile" value="F:\临时文件\back.svg" />
+                            <entry key="outputName" value="ic_item_file" />
+                            <entry key="sourceFile" value="F:\临时文件\file.svg" />
                           </map>
                         </option>
                       </PersistentState>
