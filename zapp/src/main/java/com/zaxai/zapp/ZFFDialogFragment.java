@@ -39,7 +39,7 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         mContentView=getActivity().getLayoutInflater().inflate(R.layout.zff_dialog,null);
-        initContent();
+        initView();
         builder.setView(mContentView)
                 .setPositiveButton(mPositiveButtonText, new DialogInterface.OnClickListener() {
                     @Override
@@ -72,7 +72,7 @@ public abstract class ZFFDialogFragment extends DialogFragment {
         return selectedPaths.toArray(arrayItem);
     }
 
-    private void initContent(){
+    private void initView(){
         mTitleView=(TextView)mContentView.findViewById(R.id.dialog_title);
         mTitleView.setText(mTitle);
         mPathView=(TextView)mContentView.findViewById(R.id.dir_path);
