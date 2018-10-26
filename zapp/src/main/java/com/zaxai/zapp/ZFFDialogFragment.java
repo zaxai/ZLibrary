@@ -96,7 +96,7 @@ public abstract class ZFFDialogFragment extends DialogFragment {
         folderListView.setLayoutManager(layoutManager);
         mZFFItemList=new ArrayList<>();
         mZAdapter=onCreateAdapter(mZFFItemList);
-        mZAdapter.setItemClickerListener(new ZFolderAdapter.onRecyclerItemClickerListener() {
+        mZAdapter.setOnRecyclerItemClickListener(new ZFolderAdapter.OnRecyclerItemClickListener() {
             @Override
             public void onRecyclerItemClick(int position) {
                 ZFFItem zffItem=mZFFItemList.get(position);

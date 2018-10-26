@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class ZFFAdapter extends RecyclerView.Adapter<ZFFAdapter.ZFFViewHolder> {
     protected List<ZFFItem> mZFFItemList;
-    private onRecyclerItemClickerListener mItemClickerListener;
+    private OnRecyclerItemClickListener mOnRecyclerItemClickListener;
 
     public ZFFAdapter(List<ZFFItem> zffItemList) {
         mZFFItemList = zffItemList;
@@ -46,8 +46,8 @@ public abstract class ZFFAdapter extends RecyclerView.Adapter<ZFFAdapter.ZFFView
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                if (mItemClickerListener != null)
-                    mItemClickerListener.onRecyclerItemClick(position);
+                if (mOnRecyclerItemClickListener != null)
+                    mOnRecyclerItemClickListener.onRecyclerItemClick(position);
             }
         });
         holder.mItemCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -65,11 +65,11 @@ public abstract class ZFFAdapter extends RecyclerView.Adapter<ZFFAdapter.ZFFView
         return mZFFItemList.size();
     }
 
-    public interface onRecyclerItemClickerListener {
+    public interface OnRecyclerItemClickListener {
         void onRecyclerItemClick(int position);
     }
 
-    public void setItemClickerListener(onRecyclerItemClickerListener itemClickerListener) {
-        mItemClickerListener = itemClickerListener;
+    public void setOnRecyclerItemClickListener(OnRecyclerItemClickListener l) {
+        mOnRecyclerItemClickListener = l;
     }
 }
