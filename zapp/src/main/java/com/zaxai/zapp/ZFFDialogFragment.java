@@ -3,7 +3,6 @@ package com.zaxai.zapp;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +29,8 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     protected ZFFAdapter mZAdapter;
     private String mDirPath;
     private String mTitle="添加项目";
+    private int mTitleColor=0xFF444444;
+    private int mBackColor=0xFF444444;
     private String mPositiveButtonText="确定";
     private OnClickListener mOnPositiveListener;
     private String mNegativeButtonText="取消";
@@ -75,9 +76,11 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     private void initView(){
         mTitleView=(TextView)mContentView.findViewById(R.id.dialog_title);
         mTitleView.setText(mTitle);
+        mTitleView.setTextColor(mTitleColor);
         mPathView=(TextView)mContentView.findViewById(R.id.dir_path);
         mPathView.setText(mDirPath);
         mBackView=(TextView)mContentView.findViewById(R.id.back_view);
+        mBackView.setTextColor(mBackColor);
         mBackView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +133,16 @@ public abstract class ZFFDialogFragment extends DialogFragment {
 
     public ZFFDialogFragment setTitle(String title){
         mTitle=title;
+        return this;
+    }
+
+    public ZFFDialogFragment setTitleColor(int titleColor){
+        mTitleColor=titleColor;
+        return this;
+    }
+
+    public ZFFDialogFragment setBackColor(int backColor){
+        mBackColor=backColor;
         return this;
     }
 

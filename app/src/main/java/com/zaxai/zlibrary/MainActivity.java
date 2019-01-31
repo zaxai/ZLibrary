@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new ZFolderDialogFragment()
                         .setTitle("添加目录")
+                        .setTitleColor(0xFFFF0000)
+                        .setBackColor(0xFFFF0000)
                         .setPositiveButton("确定", new ZFFDialogFragment.OnClickListener() {
                             @Override
                             public void onClick(String[] selectedPaths) {
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ZFileDialogFragment().setTitle("添加文件").show(getSupportFragmentManager(),getStoragePaths()[0]);
+                new ZFileDialogFragment().setTitle("添加文件").setTitleColor(0xFF0000FF).setBackColor(0xFF0000FF).show(getSupportFragmentManager(),getStoragePaths()[0]);
             }
         });
     }
