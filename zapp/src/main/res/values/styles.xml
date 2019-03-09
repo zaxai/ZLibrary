@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ZShareDialogAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/zshare_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/zshare_dialog_out</item>
+    </style>
+</resources>

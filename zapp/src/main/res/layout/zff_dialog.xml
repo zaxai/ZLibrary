@@ -10,7 +10,6 @@
         android:id="@+id/dialog_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="添加项目"
         android:textSize="24sp"
         android:gravity="center" />
     <LinearLayout
@@ -24,7 +23,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="path"
             android:textSize="18sp"
             android:gravity="left"
             android:singleLine="true"
@@ -33,7 +31,6 @@
             android:id="@+id/back_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" 返回"
             android:textSize="18sp"
             android:gravity="right"
             android:drawableLeft="@drawable/ic_btn_back"/>

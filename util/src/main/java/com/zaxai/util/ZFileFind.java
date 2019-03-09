@@ -1,4 +1,10 @@
 package com.zaxai.util;
+/*
+ ** Version  1.0.0
+ ** Date     2019.03.09
+ ** Author   zax
+ ** Copyright © Since 2009 Zaxai.Com All Rights Reserved
+ */
 
 import java.io.File;
 import java.util.List;

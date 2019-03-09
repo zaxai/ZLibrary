@@ -1,5 +1,6 @@
 package com.zaxai.zapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,8 +29,9 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     private TextView mBackView;
     protected List<ZFFItem> mZFFItemList;
     protected ZFFAdapter mZAdapter;
-    private String mDirPath;
+    private String mDirPath="";
     private String mTitle="添加项目";
+    private String mBack="返回";
     private int mTitleColor=0xFF444444;
     private int mBackColor=0xFF444444;
     private String mPositiveButtonText="确定";
@@ -38,28 +41,34 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-        mContentView=getActivity().getLayoutInflater().inflate(R.layout.zff_dialog,null);
-        initView();
-        builder.setView(mContentView)
-                .setPositiveButton(mPositiveButtonText, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (mOnPositiveListener != null)
-                            mOnPositiveListener.onClick(getSelectedPaths());
-                    }
-                })
-                .setNegativeButton(mNegativeButtonText, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (mOnNegativeListener != null) {
-                            mOnNegativeListener.onClick(getSelectedPaths());
+        Activity activity=getActivity();
+        if(activity!=null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            mContentView = activity.getLayoutInflater().inflate(R.layout.zff_dialog, null);
+            initView();
+            builder.setView(mContentView)
+                    .setPositiveButton(mPositiveButtonText, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (mOnPositiveListener != null)
+                                mOnPositiveListener.onClick(getSelectedPaths());
                         }
-                    }
-                });
-        AlertDialog dialog=builder.create();
-        dialog.getWindow().setGravity(Gravity.TOP);
-        return dialog;
+                    })
+                    .setNegativeButton(mNegativeButtonText, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (mOnNegativeListener != null) {
+                                mOnNegativeListener.onClick(getSelectedPaths());
+                            }
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            Window window = dialog.getWindow();
+            if (window != null)
+                window.setGravity(Gravity.TOP);
+            return dialog;
+        }else
+            return super.onCreateDialog(savedInstanceState);
     }
 
     @NonNull
@@ -74,12 +83,13 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     }
 
     private void initView(){
-        mTitleView=(TextView)mContentView.findViewById(R.id.dialog_title);
+        mTitleView=mContentView.findViewById(R.id.dialog_title);
         mTitleView.setText(mTitle);
         mTitleView.setTextColor(mTitleColor);
-        mPathView=(TextView)mContentView.findViewById(R.id.dir_path);
+        mPathView=mContentView.findViewById(R.id.dir_path);
         mPathView.setText(mDirPath);
-        mBackView=(TextView)mContentView.findViewById(R.id.back_view);
+        mBackView=mContentView.findViewById(R.id.back_view);
+        mBackView.setText(mBack);
         mBackView.setTextColor(mBackColor);
         mBackView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +104,9 @@ public abstract class ZFFDialogFragment extends DialogFragment {
                 }
             }
         });
-        RecyclerView folderListView=(RecyclerView)mContentView.findViewById(R.id.dialog_list);
+        RecyclerView recyclerView=mContentView.findViewById(R.id.dialog_list);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
-        folderListView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
         mZFFItemList=new ArrayList<>();
         mZAdapter=onCreateAdapter(mZFFItemList);
         mZAdapter.setOnRecyclerItemClickListener(new ZFolderAdapter.OnRecyclerItemClickListener() {
@@ -110,8 +120,8 @@ public abstract class ZFFDialogFragment extends DialogFragment {
                 }
             }
         });
-        folderListView.setAdapter(mZAdapter);
-        folderListView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(mZAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         onRefreshItem(mDirPath);
     }
 
@@ -147,9 +157,7 @@ public abstract class ZFFDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void show(FragmentManager fragmentManager, String dirPath) {
-        if (dirPath == null)
-            return;
+    public void show(FragmentManager fragmentManager,@NonNull String dirPath) {
         mDirPath = dirPath;
         super.show(fragmentManager, toString());
     }

@@ -15,8 +15,12 @@ import android.widget.Toast;
 import com.zaxai.zapp.ZFFDialogFragment;
 import com.zaxai.zapp.ZFileDialogFragment;
 import com.zaxai.zapp.ZFolderDialogFragment;
+import com.zaxai.zapp.ZShareDialogFragment;
+import com.zaxai.zapp.ZShareItem;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new ZFileDialogFragment().setTitle("添加文件").setTitleColor(0xFF0000FF).setBackColor(0xFF0000FF).show(getSupportFragmentManager(),getStoragePaths()[0]);
+            }
+        });
+        Button shareBtn=findViewById(R.id.share_btn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<ZShareItem> zShareItemList=new ArrayList<>();
+                zShareItemList.add(new ZShareItem(1,"微信",R.drawable.ic_wechat));
+                zShareItemList.add(new ZShareItem(2,"QQ",R.drawable.ic_qq));
+                zShareItemList.add(new ZShareItem(3,"复制链接",R.drawable.ic_link));
+                new ZShareDialogFragment().setOnClickListener(new ZShareDialogFragment.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(ZShareItem zShareItem) {
+                        Toast.makeText(MainActivity.this,zShareItem.getItemName(),Toast.LENGTH_SHORT).show();
+                    }
+                }).show(getSupportFragmentManager(),zShareItemList);
             }
         });
     }

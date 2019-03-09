@@ -1,20 +1,10 @@
 package com.zaxai.zapp;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+/*
+ ** Version  1.0.0
+ ** Date     2019.03.09
+ ** Author   zax
+ ** Copyright © Since 2009 Zaxai.Com All Rights Reserved
+ */
 
 import com.zaxai.util.ZFileFind;
 
