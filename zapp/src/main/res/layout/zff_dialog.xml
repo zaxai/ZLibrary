@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:divider="@drawable/dialog_divider"
+    android:divider="@drawable/ic_zapp_divider"
     android:showDividers = "middle">
 
     <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:gravity="left"
+            android:gravity="start"
             android:singleLine="true"
             android:ellipsize="middle"/>
         <TextView
@@ -32,8 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:gravity="right"
-            android:drawableLeft="@drawable/ic_btn_back"/>
+            android:gravity="end"
+            android:drawableLeft="@drawable/ic_zapp_btn_back"
+            android:drawableStart="@drawable/ic_zapp_btn_back"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/dialog_list"
